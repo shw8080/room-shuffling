@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name ="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Room Allocation</title>
+<style>
+  /* css code */
+
+  body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    border-bottom: 2px solid #490934;
+    padding-bottom: 10px;
+    color: #c43714;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  #shuffle-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  #shuffle-button:hover {
+    background-color: #0056b3;
+  }
+
+  .rooms-container {
+    margin-top: 20px;
+  }
+
+  .room {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  h1 {
+    border-bottom: 2px solid #490934; 
+    padding-bottom: 10px; 
+    color: #c43714; 
+    font-weight: bold; 
+    font-style: italic; 
+  }
+  
+    body {
+    background-color: #cfc2c2; 
+    font-family: Arial, sans-serif; 
+    color: #3d1e14; 
+
+    #shuffle-button {
+    background-color: #bce40c; 
+    color: #fff; 
+    border-color: #490934; 
+    padding: 10px 20px;
+    cursor: pointer;
+    
+  }
+  
+
+  }
+  
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Navgurukul campus room shuffling</h1>
+  
+    <img src="https://miro.medium.com/v2/resize:fit:1000/1*jzthNHjY7XVZUoJwrw9h6w.jpeg" alt="Navgurukul Logo" width="200">
+
+    <button id="shuffle-button"><h2>Navgurukul campus room shuffling</h2></button>
+
+    <div class="rooms-container" id="rooms-container">
+      
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("shuffle-button").addEventListener("click", shuffleAndAllocate);
+
+    function shuffleAndAllocate() {
+      const students = [
+         "Nikita Gajanan Masurkar", "Dipa Raosaheb Raurale", "Dhanashri Waman Kakde", "Suchita Dayaram Bondre", "Vaishnavi Siddheshwar Paropate", "Dhanashri Bilbile",
+	       "Sakshi Gajanan Paraskar","Shubhangi Vinay Wankhade", "Payal Tulashi dhok", "Shweta khadse", "Manasvi Rajabhau Yekhande", "Arpita Nilesh Belsare", "Shrutika Subhashrao Bhagwat", 
+         "Shital Bharatsingh Mohare", "Khushi Onkar Kacchwah", "Chanda Namdev Dod", "Aakanksha Rakesh Motghare", "Vaishnavi Sheshnavi Khode",	"Pragati Radhesham Dike","Chaitali Banduji Dhoke", "Sarika Rajendra Shende", 
+         "Bhagyashri Mahadeo Sonwane", "Mohini Jagdish Ramteke", "Harsha Rajendra Chandurkar", "Pratima Shrikrushna Akolkar",
+         "Amruta Sunil Suralkar", "Shubhangi Prakash Dhage", "Nidhi Sewakram Bagde", "Divya Bhagawan Kusumbe", "Sapana Dipak Sawai", "Pratiksha Ashokrav Shapane", "Tejashri Rajendra Aware"
+      ];
+
+      
+      for (let i = students.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [students[i], students[j]] = [students[j], students[i]];
+      }
+      
+      
+      const labels = ['A', 'B', 'C'];
+      let labelIndex = 0;
+
+      const roomsContainer = document.getElementById("rooms-container");
+      roomsContainer.innerHTML = "";
+
+      const studentsPerRoom = 3;
+      const numberOfRooms = Math.ceil(students.length / studentsPerRoom);
+
+      for (let i = 0; i < 8; i++) {
+      const room = document.createElement("div");
+      room.classList.add("room");
+      room.innerHTML = `<h2>Room ${i + 1}</h2>`; 
+
+
+        const ul = document.createElement("ul");
+        for (let j = 0; j < studentsPerRoom; j++) {
+          const studentIndex = i * studentsPerRoom + j;
+          if (studentIndex < students.length) {
+            const li = document.createElement("li");
+            li.textContent = `${labels[labelIndex]}: ${students[studentIndex]}`;
+            ul.appendChild(li);
+            labelIndex = (labelIndex + 1) % labels.length; 
+          }
+        }
+
+        room.appendChild(ul);
+        roomsContainer.appendChild(room);
+      }
+    }
+  </script>
+</body>
+</html>
